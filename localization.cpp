@@ -1,13 +1,9 @@
 #include "localization.h"
-#include <stdlib.h>
+#include <cmath>
 
 
-Loc::Loc()
-{
-    longitude=0;
-    latitude=0;
-}
-Loc::Loc(int lg, int lt=0)//dorobić przełożenia może funkcje
+
+Loc::Loc(int lg, int lt)//dorobić przełożenia może funkcje
 {
     longitude=lg;
     latitude=lt;
@@ -16,6 +12,18 @@ Loc::Loc(int lg, int lt=0)//dorobić przełożenia może funkcje
 Loc::~Loc()
 {
     //dtor
+}
+
+int Loc::getLatit()
+{
+    int val=latitude;
+    return val;
+}
+
+int Loc::getLong()
+{
+    int val=longitude;
+    return val;
 }
 
 
@@ -112,19 +120,19 @@ Loc Loc::setLong(int arc,Loc & l) const //zeraaa
     return st;
 }
 
-        bool ifequador()
+        bool Loc::ifequador()
         {
             if (longitude==0)
                 return true;
             else return false;
         }
-        bool ifNpole()
+        bool Loc::ifNpole()
         {
             if (longitude==90)
                 return true;
             else return false;
         }
-        bool ifSpole()
+        bool Loc::ifSpole()
         {
             if (longitude==-90)
                 return true;

@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1490854231 source:/home/ja/Dokumenty/GPS/localization.cpp
+	"localization.h"
+	<cmath>
+
+1490854454 /home/ja/Dokumenty/GPS/localization.h
+	"shift.h"
+
+1490855226 /home/ja/Dokumenty/GPS/shift.h
+	"localization.h"
+
+1490854433 source:/home/ja/Dokumenty/GPS/localizationTests.cpp
+	<boost/test/unit_test.hpp>
+	"localization.h"
+
+1490123315 source:/home/ja/Dokumenty/GPS/main.cpp
+	<iostream>
+

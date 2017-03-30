@@ -1,14 +1,13 @@
 #ifndef LOCALIZATION_H
 #define LOCALIZATION_H
 #include "shift.h"
-
+class Shift;
 
 
 class Loc
 {
     public:
-        Loc();
-        Loc(int lg, int lt=0);
+        Loc(int lg=0, int lt=0);
 
         Loc operator+(const Shift & s) const;
         Loc operator-(const Shift & s) const;
@@ -17,11 +16,14 @@ class Loc
         Shift operator-(const Loc & l) const;
 
 
-        friend bool ifequador();
-       friend  bool ifNpole();
-        friend bool ifSpole();
+        bool ifequador();
+        bool ifNpole();
+        bool ifSpole();
 
-        virtual ~loc();
+        int getLatit();
+        int getLong();
+
+        virtual ~Loc();
     private:
         int longitude;
         int latitude;
@@ -30,6 +32,6 @@ class Loc
         Loc setLong (int alpha,Loc&l)const;
         int setLatit(int alpha)const;
 
-}
+};
 
 #endif // LOCALIZATION_H

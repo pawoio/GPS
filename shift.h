@@ -11,8 +11,7 @@ class Shift
         int latitArc;
         char latitDir;
 
-        Shift ();
-        Shift(int arc1, char dir1='N',int arc2=0, char dir2='E');
+        Shift(int arc1=0, char dir1='N',int arc2=0, char dir2='E');
 
 
         Shift operator+(const Shift & s) const;
@@ -25,7 +24,7 @@ class Shift
         virtual ~Shift();
 
     private:
-        int convDir(int arc, char dir);
+        int convDir(int arc, char dir) const;
 
 };
 
