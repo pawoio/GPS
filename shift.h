@@ -1,17 +1,32 @@
 #ifndef SHIFT_H
 #define SHIFT_H
+#include "localization.h"
 
-
-class shift
+namespace shiftProg;
+class Shift
 {
     public:
-        shift();
-        shift()
-        virtual ~shift();
+        int longArc;
+        char longDir;
+        int latitArc;
+        char latitDir;
+
+        Shift ();
+        Shift(int arc1, char dir1='N',int arc2=0, char dir2='E');
+
+
+        Shift operator+(const Shift & s) const;
+        Loc operator+(const Loc::Loc & l) const;
+        Shift operator-(const Shift & s) const;
+        Shift operator-=(const Shift & s) const;
+        Shift operator+=(const Shift & s) const;
+
+
+        virtual ~Shift();
 
     private:
-        int longarc;
-        int lengtharc;
+        int convDir(int arc, char dir);
+
 };
 
 #endif // SHIFT_H

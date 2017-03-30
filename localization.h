@@ -1,16 +1,34 @@
 #ifndef LOCALIZATION_H
 #define LOCALIZATION_H
+#include "shift.h"
 
+namespace Localization;
 
-class localization
+class Loc
 {
     public:
-        localization();
-        virtual ~localization();
+        Loc();
+        Loc(int lg, int lt=0);
+
+        Loc operator+(const Shift & s) const;
+        Loc operator-(const Shift & s) const;
+        Loc operator+=(const Shift & s) const;
+        Loc operator -=(const Shift & s) const;
+        Shift operator-(const Loc & l) const;
+
+
+        bool ifequador();
+        bool ifNpole();
+        bool ifSpole();
+
+        virtual ~loc();
     private:
-        enum {N,S,W,E};
         int longitude;
-        int lengthitude;
+        int latitude;
+
+        int convDir (int const alpha,  const char dir);
+        int setLong (int alpha);
+        Loc setLatit(int alpha, Loc & l);
 
 };
 
