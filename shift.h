@@ -1,8 +1,8 @@
 #ifndef SHIFT_H
 #define SHIFT_H
 #include "localization.h"
+class Loc;
 
-namespace shiftProg;
 class Shift
 {
     public:
@@ -16,7 +16,7 @@ class Shift
 
 
         Shift operator+(const Shift & s) const;
-        Loc operator+(const Loc::Loc & l) const;
+        Loc operator+(const Loc & l) const;
         Shift operator-(const Shift & s) const;
         Shift operator-=(const Shift & s) const;
         Shift operator+=(const Shift & s) const;

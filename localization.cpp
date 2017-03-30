@@ -1,7 +1,6 @@
 #include "localization.h"
-#include <cmath>
+#include <stdlib.h>
 
-using namespace Localization;
 
 Loc::Loc()
 {
@@ -25,9 +24,9 @@ Loc::~Loc()
  {
     Loc sum;
 
-    sum.longitude = setLong( longitude + convDir(s.longArc, s.longDir));
-    sum = setLatit(latitude+convDir(s.latitArc, s.latitDir), sum);
 
+    sum.latitude = setLatit(latitude+convDir(s.latitArc, s.latitDir));
+    sum = setLong( longitude + convDir(s.longArc, s.longDir),sum);
     return sum;
  }
 
@@ -35,8 +34,8 @@ Loc::~Loc()
  {
     Loc diff;
 
-    diff.longitude = setLong( longitude - convDir(s.longArc, s.longDir));
-    diff = setLatit( latitude - convDir(s.latitArc, s.latitDir), diff);
+    diff.latitude = setLatit( latitude - convDir(s.latitArc, s.latitDir));
+    diff = setLong( longitude - convDir(s.longArc, s.longDir),diff);
 
     return diff;
  }
@@ -76,7 +75,7 @@ Loc Loc::operator-=(const Shift & s ) const
 
 
 
-int Loc::convDir(const int alpha, const char dir)
+int Loc::convDir(const int alpha, const char dir) const
 {
     int arc;
     switch(dir)
@@ -92,7 +91,7 @@ int Loc::convDir(const int alpha, const char dir)
     return arc;
 }
 
-int Loc::setLatit (int arc)
+int Loc::setLatit (int arc) const
 {
 
     int alpha=arc;
@@ -100,7 +99,7 @@ int Loc::setLatit (int arc)
     alpha=fabs(alpha)<=180 ? alpha : alpha>0 ? 180-alpha: alpha-180;
     return alpha;
 }
-Loc Loc::setLong(int arc,Loc & l) //zeraaa
+Loc Loc::setLong(int arc,Loc & l) const //zeraaa
 {
     int alpha=arc%360;
 
@@ -113,21 +112,21 @@ Loc Loc::setLong(int arc,Loc & l) //zeraaa
     return st;
 }
 
-        bool ifequador(Loc & l)
+        bool ifequador()
         {
-            if (l.longitude==0)
+            if (longitude==0)
                 return true;
             else return false;
         }
-        bool ifNpole(Loc & l)
+        bool ifNpole()
         {
-            if (l.longitude==90
+            if (longitude==90)
                 return true;
             else return false;
         }
-        bool ifSpole(Loc & l)
+        bool ifSpole()
         {
-            if (l.longitude==-90)
+            if (longitude==-90)
                 return true;
             else return false;
         }

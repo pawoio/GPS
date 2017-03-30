@@ -2,7 +2,7 @@
 #define LOCALIZATION_H
 #include "shift.h"
 
-namespace Localization;
+
 
 class Loc
 {
@@ -17,19 +17,19 @@ class Loc
         Shift operator-(const Loc & l) const;
 
 
-        bool ifequador();
-        bool ifNpole();
-        bool ifSpole();
+        friend bool ifequador();
+       friend  bool ifNpole();
+        friend bool ifSpole();
 
         virtual ~loc();
     private:
         int longitude;
         int latitude;
 
-        int convDir (int const alpha,  const char dir);
-        int setLong (int alpha);
-        Loc setLatit(int alpha, Loc & l);
+        int convDir (int const alpha,  const char dir)const;
+        Loc setLong (int alpha,Loc&l)const;
+        int setLatit(int alpha)const;
 
-};
+}
 
 #endif // LOCALIZATION_H
