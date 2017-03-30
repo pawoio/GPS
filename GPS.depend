@@ -16,3 +16,20 @@
 1490123315 source:/home/ja/Dokumenty/GPS/main.cpp
 	<iostream>
 
+1490874032 source:/home/mion/s/166/pmlyniec/Desktop/GPS/GPS/localization.cpp
+	"localization.h"
+	<cmath>
+
+1490874429 /home/mion/s/166/pmlyniec/Desktop/GPS/GPS/localization.h
+	"shift.h"
+
+1490873707 /home/mion/s/166/pmlyniec/Desktop/GPS/GPS/shift.h
+	"localization.h"
+
+1490873707 source:/home/mion/s/166/pmlyniec/Desktop/GPS/GPS/localizationTests.cpp
+	<boost/test/unit_test.hpp>
+	"localization.h"
+
+1490873032 source:/home/mion/s/166/pmlyniec/Desktop/GPS/GPS/main.cpp
+	<iostream>
+

@@ -14,13 +14,13 @@ Loc::~Loc()
     //dtor
 }
 
-int Loc::getLatit()
+int Loc::getLatit() const
 {
     int val=latitude;
     return val;
 }
 
-int Loc::getLong()
+int Loc::getLong() const
 {
     int val=longitude;
     return val;
@@ -107,7 +107,7 @@ int Loc::setLatit (int arc) const
     alpha=fabs(alpha)<=180 ? alpha : alpha>0 ? 180-alpha: alpha-180;
     return alpha;
 }
-Loc Loc::setLong(int arc,Loc & l) const //zeraaa
+Loc Loc::setLong(int arc, const Loc & l) const //zeraaa
 {
     int alpha=arc%360;
 

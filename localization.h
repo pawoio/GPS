@@ -20,8 +20,11 @@ class Loc
         bool ifNpole();
         bool ifSpole();
 
-        int getLatit();
-        int getLong();
+        int getLatit() const;
+        int getLong() const;
+
+        Loc setLong (int alpha,const Loc&l)const;
+        int setLatit(int alpha)const;
 
         virtual ~Loc();
     private:
@@ -29,8 +32,7 @@ class Loc
         int latitude;
 
         int convDir (int const alpha,  const char dir)const;
-        Loc setLong (int alpha,Loc&l)const;
-        int setLatit(int alpha)const;
+
 
 };
 
