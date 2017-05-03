@@ -2,9 +2,12 @@
 #define LOCALIZATION_H
 #include "shift.h"
 #include <cmath>
+#include <iostream>
 
-class<Type> Shift;
+template<class Type> class Shift;
+template <class Type> class Loc;
 
+template<class Type>
 struct HistoryPosition
 {
     Loc<Type> loc;
@@ -15,74 +18,48 @@ struct HistoryPosition
 template <class Type> class Loc
 {
     public:
-        Loc(Type lg=0, Type lt=0, unsigned int historyLength=0);
+
 
         enum {N,S,E,W};
 
-        Loc operator+(const Shift<Type> & s) const;
-        Loc operator-(const Shift<Type> & s) const;
-        Loc operator+=(const Shift<Type> & s) const;
-        Loc operator -=(const Shift<Type> & s) const;
-        Shift<Type> operator-(const Loc<Type> & l) const;
 
-
-        bool ifequador();
-        bool ifNpole();
-        bool ifSpole();
-
-        Type getLatit() const;
-        Type getLong() const;
-
-        Loc setLong (Type alpha,const Loc<Type>&l)const;
-        Type setLatit(Type alpha)const;
-
-        printHistory();
-        Loc viewHistoryLoc(unsigned int);
 
     private:
 
         const unsigned int historyLength;
         unsigned int historyIndex;
-        HistoryPosition* history[];
+        HistoryPosition<Type>* history;
 
         Type longitude;
         Type latitude;
 
-        Type convDir ( const Type alpha,  const char dir)const;
-
-    template <class Type>
-    Loc(Type lg, Type lt, const unsigned int historyLength)//dorobić przełożenia może funkcje
+public:
+    Loc(Type lg = 0, Type lt = 0, const unsigned int historyLength = 0)//dorobić przełożenia może funkcje
     {
-        longitude=lg;
-        latitude=lt;
-        HistoryPosition* history= new HistoryPosition[historyLength];
+        longitude = lg;
+        latitude = lt;
+        history = new HistoryPosition<Type>[historyLength];
         historyIndex=0;
     }
 
-    template <class Type>
     ~Loc()
     {
         delete history;
     }
 
-    template <class Type>
     Type getLatit() const
     {
         Type val=latitude;
         return val;
     }
 
-    template <class Type>
     Type getLong() const
     {
         Type val=longitude;
         return val;
     }
 
-
-
-    template <class Type>
-     Loc operator+(const Shift & s) const
+     Loc operator+(const Shift<Type> & s)
      {
         Loc sum;
 
@@ -90,19 +67,18 @@ template <class Type> class Loc
         sum.latitude = setLatit(latitude+convDir(s.latitArc, s.latitDir));
         sum = setLong( longitude + convDir(s.longArc, s.longDir),sum);
 
-        if(historyIndex<historyLength)
+        if(historyIndex < historyLength)
         {
-            history[historyIndex].loc=sum;
-            history[historyIndex].loc=&this;
-            historyIndex++
+            history[historyIndex].loc = sum;
+            history[historyIndex].loc = &this;
+            historyIndex++;
         }
 
 
         return sum;
      }
 
-    template <class Type>
-     Loc operator-(const Shift & s) const
+     Loc operator-(const Shift<Type> & s)
      {
         Loc diff;
 
@@ -111,20 +87,19 @@ template <class Type> class Loc
 
         if(historyIndex<historyLength)
         {
-            history[historyIndex].loc=sum;
-            history[historyIndex].loc=&this;
-            historyIndex++
+            history[historyIndex].loc = diff;
+            history[historyIndex].loc = &this;
+            historyIndex++;
         }
 
         return diff;
      }
 
-    template <class Type>
-     Shift operator-(const Loc & l) const
+     Shift<Type> operator-(const Loc & l) const
      {
-        Shift diff;
-        diff.latitArc=fabs(l.latitude-latitude);
-        diff.longArc=fabs(l.longitude-longitude);
+        Shift<Type> diff;
+        diff.latitArc = fabs(l.latitude - latitude);
+        diff.longArc = fabs(l.longitude - longitude);
 
         if((l.latitude-latitude)>0)
             diff.latitDir='E';
@@ -137,33 +112,31 @@ template <class Type> class Loc
         return diff;
      }
 
-    template <class Type>
-    Loc operator+=(const Shift & s) const
+    Loc operator+=(const Shift<Type> & s)
     {
         Loc sum;
         sum = sum + s;
 
         if(historyIndex<historyLength)
         {
-            history[historyIndex].loc=sum;
-            history[historyIndex].loc=&this;
-            historyIndex++
+            history[historyIndex].loc = sum;
+            history[historyIndex].loc = &this;
+            historyIndex++;
         }
 
         return sum;
     }
 
-    template <class Type>
-    Loc operator-=(const Shift & s ) const
+    Loc operator-=(const Shift<Type> & s )
     {
         Loc diff;
         diff=diff - s;
 
         if(historyIndex<historyLength)
         {
-            history[historyIndex].loc=sum;
-            history[historyIndex].loc=&this;
-            historyIndex++
+            history[historyIndex].loc = diff;
+            history[historyIndex].loc = &this;
+            historyIndex++;
         }
 
         return diff;
@@ -173,7 +146,6 @@ template <class Type> class Loc
 
 
 
-    template <class Type>
     Type convDir(const Type alpha, const char dir) const
     {
             Type arc;
@@ -190,7 +162,6 @@ template <class Type> class Loc
         return arc;
     }
 
-    template <class Type>
     Type setLatit (Type arc) const
     {
 
@@ -200,7 +171,6 @@ template <class Type> class Loc
         return alpha;
     }
 
-    template <class Type>
     Loc setLong(Type arc, const Loc & l) const //zeraaa
     {
         Type alpha=arc%360;
@@ -214,7 +184,6 @@ template <class Type> class Loc
         return st;
     }
 
-    template <class Type>
     bool ifequador()
     {
         if (longitude==0)
@@ -222,7 +191,6 @@ template <class Type> class Loc
         else return false;
     }
 
-    template <class Type>
     bool ifNpole()
     {
         if (longitude==90)
@@ -230,7 +198,6 @@ template <class Type> class Loc
         else return false;
     }
 
-    template <class Type>
     bool ifSpole()
     {
         if (longitude==-90)
@@ -238,16 +205,12 @@ template <class Type> class Loc
         else return false;
     }
 
-    template <class Type>
-    printHistory()
+    void printHistory()
     {
         for(unsigned int i=0;i < historyIndex; i++)
             std::cout << i+1 << history[i].shift.longArc <<history[i].shift.longDir << history[i].shift.latitArc << history[i].shift.latitDir<<"\n"<<std::endl;
     }
 
-    template <class
-
-    template <class Type>
     Loc viewHistoryLoc(unsigned int i)
     {
 
