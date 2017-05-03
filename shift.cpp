@@ -42,15 +42,6 @@ Shift Shift::operator+(const Shift & s) const
 
 }
 
-    Loc Shift::operator+(const Loc & l) const
-{
-    Loc sum;
-    sum.latitude = l.setLatit(l.getLatit()+convDir(latitArc, latitDir));
-    sum = l.setLong( (l.getLong() + convDir(longArc, longDir)),l);
-
-
-    return sum;
-}
 
 Shift Shift::operator-(const Shift & s) const
 {

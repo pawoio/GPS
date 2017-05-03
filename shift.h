@@ -6,25 +6,24 @@ class Loc;
 class Shift
 {
     public:
-        int longArc;
-        char longDir;
-        int latitArc;
-        char latitDir;
 
         Shift(int arc1=0, char dir1='N',int arc2=0, char dir2='E');
 
 
         Shift operator+(const Shift & s) const;
-        Loc operator+(const Loc & l) const;
         Shift operator-(const Shift & s) const;
         Shift operator-=(const Shift & s) const;
         Shift operator+=(const Shift & s) const;
 
+        double longArc;
+        char longDir;
+        double latitArc;
+        char latitDir;
 
-        virtual ~Shift();
 
     private:
         int convDir(int arc, char dir) const;
+
 
 };
 

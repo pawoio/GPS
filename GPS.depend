@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1490854231 source:/home/ja/Dokumenty/GPS/localization.cpp
+1491286695 source:/home/ja/Dokumenty/GPS/localization.cpp
 	"localization.h"
 	<cmath>
 
-1490854454 /home/ja/Dokumenty/GPS/localization.h
+1493811389 /home/ja/Dokumenty/GPS/localization.h
 	"shift.h"
+	<cmath>
 
-1490855226 /home/ja/Dokumenty/GPS/shift.h
+1493811022 /home/ja/Dokumenty/GPS/shift.h
 	"localization.h"
 
 1490854433 source:/home/ja/Dokumenty/GPS/localizationTests.cpp
