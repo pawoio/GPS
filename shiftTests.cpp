@@ -1,34 +1,38 @@
 #include <boost/test/unit_test.hpp>
+#include <boost/test/test_case_template.hpp>
+#include <boost/mpl/list.hpp>
 
 #include"shift.h"
 
-BOOST_AUTO_TEST_CASE(constructing_shift_components_are_defoult)
+typedef boost::mpl::list<int,long,unsigned int, float> test_types;
+
+BOOST_AUTO_TEST_TEMPLATE(constructing_shift_components_are_defoult,Type, test_types)
 {
-Shift s;
-BOOST_CHECK(longArc==0&&latitArc==0&&longDir='N'&&latitDir='E');
+Shift<Type> s;
+BOOST_CHECK(longArc==0&&latitArc==0&&getLongDir()=='N'&&getLatitDir()=='E');
 }
 
-BOOST_AUTO_TEST_CASE(adding_two_shifts_eq_shift)
+BOOST_AUTO_TEST_TEMPLATE(adding_two_shifts_eq_shift,Type, test_types)
 {
-Shift s=Shift(100,'S',-5);
-Shift sh;
-Shift eq;
+Shift<Type> s=Shift(100,'S',-5);
+Shift<Type> sh;
+Shift<Type> eq;
 eq=s+sh;
 BOOST_CHECK(eq.latitArc==-5&&eq.longArc==100);
 }
-BOOST_AUTO_TEST_CASE(substracing_two_shifts_eq_shifts)
+BOOST_AUTO_TEST_TEMPLATE(substracing_two_shifts_eq_shifts,Type, test_types)
 {
-Shift s=Shift(100,'N',-3);
-Shift sh;
-Shift eq;
+Shift<Type> s=Shift(100,'N',-3);
+Shift<Type> sh;
+Shift<Type> eq;
 eq=sh-s;
-BOOST_CHECK(eq.longArc==100&&eq.longDir=='S'&&eq.latitArc==3&&eq.latitDir=='W');
+BOOST_CHECK(eq.longArc==100&&eq.getLongDir()=='S'&&eq.latitArc==3&&eq.getLatitDir()=='W');
 }
-BOOST_AUTO_TEST_CASE(adding_shift_to_location_eq_location)
+BOOST_AUTO_TEST_TEMPLATE(adding_shift_to_location_eq_location,Type, test_types)
 {
-Loc l;
-Shift s=Shift(10,'N',200,'E');
-Loc eq;
+Loc<Type> l;
+Shift<Type> s=Shift(10,'N',200,'E');
+Loc<Type> eq;
 eq=s+l;
 BOOST_CHECK(eq.getLong()==10&&eq.getLatit()==160);
 }

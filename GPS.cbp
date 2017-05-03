@@ -35,8 +35,6 @@
 		<Unit filename="class.ads" />
 		<Unit filename="localization.h" />
 		<Unit filename="localizationTests.cpp" />
-		<Unit filename="main.cpp" />
-		<Unit filename="shift.cpp" />
 		<Unit filename="shift.h" />
 		<Unit filename="shiftTests.cpp" />
 		<Extensions>
