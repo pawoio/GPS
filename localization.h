@@ -26,24 +26,27 @@ template <class Type> class Loc
 
     private:
 
-        const unsigned int historyLength;
-        unsigned int historyIndex;
+        const size_t historyLength;
+        size_t historyIndex;
         HistoryPosition<Type>* history;
 
         Type longitude;
         Type latitude;
 
 public:
-    Loc(Type lg = 0, Type lt = 0, const unsigned int historyLength = 0)//dorobić przełożenia może funkcje
+    Loc(Type lg = 0, Type lt = 0,const size_t historyLength_ = 0)//dorobić przełożenia może funkcje
+    : historyLength(historyLength_)
     {
         longitude = lg;
         latitude = lt;
+        if(historyLength!=0)
         history = new HistoryPosition<Type>[historyLength];
         historyIndex=0;
     }
 
     ~Loc()
     {
+        if(historyLength!=0)
         delete history;
     }
 
@@ -64,13 +67,13 @@ public:
         Loc sum;
 
 
-        sum.latitude = setLatit(latitude+convDir(s.latitArc, s.latitDir));
-        sum = setLong( longitude + convDir(s.longArc, s.longDir),sum);
+        sum.latitude = setLatit(latitude+convDir(s.latitArc, s.getLatitDir()));
+        sum = setLong( longitude + convDir(s.longArc, s.getLongDir()),sum);
 
         if(historyIndex < historyLength)
         {
             history[historyIndex].loc = sum;
-            history[historyIndex].loc = &this;
+            history[historyIndex].loc = *this;
             historyIndex++;
         }
 
@@ -88,7 +91,7 @@ public:
         if(historyIndex<historyLength)
         {
             history[historyIndex].loc = diff;
-            history[historyIndex].loc = &this;
+            history[historyIndex].loc = *this;
             historyIndex++;
         }
 
@@ -120,7 +123,7 @@ public:
         if(historyIndex<historyLength)
         {
             history[historyIndex].loc = sum;
-            history[historyIndex].loc = &this;
+            history[historyIndex].loc = *this;
             historyIndex++;
         }
 
@@ -207,13 +210,13 @@ public:
 
     void printHistory()
     {
-        for(unsigned int i=0;i < historyIndex; i++)
+        for(size_t i=0;i < historyIndex; i++)
             std::cout << i+1 << history[i].shift.longArc <<history[i].shift.longDir << history[i].shift.latitArc << history[i].shift.latitDir<<"\n"<<std::endl;
     }
 
-    Loc viewHistoryLoc(unsigned int i)
+    Loc viewHistoryLoc(size_t i)
     {
-
+        if(i<historyIndex)
         return history[i+1].loc;
     }
 

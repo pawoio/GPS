@@ -9,8 +9,7 @@ class Shift
     // poni¿ej wszystko jest domyœlnie prywatne
     char longDir;
     char latitDir;
-    Type longArc;
-    Type latitArc;
+
 
     Type convDir(Type arc, char dir) const
     {
@@ -28,6 +27,8 @@ class Shift
         return alpha;
     }
 public:
+    Type longArc;
+    Type latitArc;
     Shift(Type arc1, char dir1, Type arc2, char dir2)
     {
         Type longArc=arc1;
@@ -90,6 +91,7 @@ public:
     Shift operator-=(const Shift & s) const
     {
         Shift diff;
+
 
         diff=diff-s;
 
